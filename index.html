@@ -18,9 +18,9 @@
 body{
     min-height:100vh;
     display:flex;
-    flex-direction:column;
+    justify-content:center;
     align-items:center;
-    padding:30px 15px 60px;
+    padding:20px;
     overflow-x:hidden;
 
     background:linear-gradient(135deg,#ffb6c1,#ff69b4,#ffc0cb);
@@ -35,56 +35,52 @@ body{
 }
 
 h1{
-    font-size:2.6rem;
+    position:absolute;
+    top:20px;
     text-align:center;
-    margin-bottom:30px;
+    font-size:2.2rem;
     font-weight:700;
     background:linear-gradient(90deg,#fff,#ffe6f0);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
-    text-shadow:0 4px 15px rgba(0,0,0,.2);
 }
 
-.cards-container{
-    display:flex;
-    justify-content:center;
-    align-items:stretch;
-    gap:15px;
-    width:100%;
-    max-width:1000px;
-    flex-wrap:nowrap; /* 🔥 prevents stacking */
-}
+/* MAIN CARD */
 .card{
-    flex:1;                /* 🔥 makes them equal width */
-    min-width:0;           /* 🔥 prevents overflow issues */
-    padding:25px 15px;
-    border-radius:24px;
-    text-align:center;
-
+    width:100%;
+    max-width:900px;
+    padding:30px;
+    border-radius:30px;
     background:rgba(255,255,255,.15);
-    backdrop-filter:blur(14px);
+    backdrop-filter:blur(18px);
     border:1px solid rgba(255,255,255,.3);
-    box-shadow:0 20px 50px rgba(0,0,0,.25);
-    transition:.4s;
+    box-shadow:0 30px 70px rgba(0,0,0,.3);
 }
 
-.card:hover{
-    transform:translateY(-8px) scale(1.02);
-    box-shadow:0 35px 70px rgba(0,0,0,.35);
+/* Sections */
+.sections{
+    display:flex;
+    gap:30px;
+    justify-content:space-between;
 }
 
-.card h2{
+.section{
+    flex:1;
+    text-align:center;
+}
+
+.section h2{
     color:#fff;
     font-weight:400;
     margin-bottom:10px;
 }
 
 .photo{
-    width:150px;
-    height:150px;
-    margin:15px auto;
+    width:130px;
+    height:130px;
+    margin:10px auto;
     border-radius:50%;
-    padding:6px;
+    padding:5px;
     background:linear-gradient(45deg,#ff69b4,#fff,#ff69b4);
     animation:spin 8s linear infinite;
 }
@@ -104,20 +100,19 @@ h1{
 .typing{
     min-height:70px;
     color:#fff;
-    font-size:15px;
-    line-height:1.6;
-    margin:15px 0;
+    font-size:14px;
+    margin:10px 0;
 }
 
 .buttons{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:10px;
+    gap:8px;
 }
 
 .buttons button{
-    padding:12px;
-    border-radius:30px;
+    padding:10px;
+    border-radius:25px;
     border:1px solid rgba(255,255,255,.4);
     background:rgba(255,255,255,.2);
     color:#fff;
@@ -127,20 +122,17 @@ h1{
 }
 
 .buttons button:active{
-    transform:scale(1.15);
-}
-
-.buttons button:hover{
-    background:#ff69b4;
+    transform:scale(1.2);
 }
 
 .msg{
-    margin-top:12px;
-    min-height:28px;
+    margin-top:10px;
     font-weight:600;
     color:#fff;
+    min-height:24px;
 }
 
+/* Hearts */
 .heart{
     position:fixed;
     bottom:-20px;
@@ -153,118 +145,122 @@ h1{
     to{transform:translateY(-110vh);opacity:0}
 }
 
-
+/* Mobile */
+@media(max-width:768px){
+    .sections{
+        flex-direction:column;
+        gap:20px;
+    }
+}
 </style>
 </head>
 <body>
 
 <h1>Happy Valentine's Day ❤️</h1>
 
-<div class="cards-container">
+<div class="card">
 
-    <div class="card" data-person="mom">
-        <h2>To My Beloved Mom</h2>
-        <div class="photo">
-            <img src="mom.jpg" alt="Mom">
-        </div>
-        <div class="typing" id="typingMom"></div>
-        <div class="buttons"></div>
-        <div class="msg"></div>
-    </div>
+    <div class="sections">
 
-    <div class="card" data-person="sis">
-        <h2>To My Lovely Sister</h2>
-        <div class="photo">
-            <img src="sister.jpg" alt="Sister">
+        <!-- MOM -->
+        <div class="section" data-person="mom">
+            <h2>Mom 💖</h2>
+            <div class="photo">
+                <img src="mom.jpg" alt="Mom">
+            </div>
+            <div class="typing" id="typingMom"></div>
+            <div class="buttons"></div>
+            <div class="msg"></div>
         </div>
-        <div class="typing" id="typingSis"></div>
-        <div class="buttons"></div>
-        <div class="msg"></div>
+
+        <!-- SISTER -->
+        <div class="section" data-person="sis">
+            <h2>Sister 💕</h2>
+            <div class="photo">
+                <img src="sister.jpg" alt="Sister">
+            </div>
+            <div class="typing" id="typingSis"></div>
+            <div class="buttons"></div>
+            <div class="msg"></div>
+        </div>
+
     </div>
 
 </div>
 
-<!-- Audio -->
 <audio id="loveAudio" loop playsinline preload="auto">
     <source src="love.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// ================= DATA =================
+// DATA
 const letters = {
-    mom: "Ma, you are our heart, our guide, and our greatest inspiration. Salamat sa imong gugma ug sakripisyo para namo. Love kaayo ka namo!",
-    sis: "Ate, salamat sa imong gugma ug pag-atiman namo. Gimahal ka namo permi. ❤️"
+    mom: "Mom, you are my heart and my greatest blessing. Thank you for your endless love. ❤️",
+    sis: "Sister, you make life brighter and happier every day. I cherish you always. ❤️"
 };
 
 const messages = {
-    mom: ["I love you forever ❤️","You are my queen 👑","Thank you for everything 💕","My hero always 🌟","Best Rapper in the World! 🤗","Endless love ♾️"],
-    sis: ["Best sister ever 💖","You’re amazing 😘","Best Rapper 💕","Stay shining ✨","Love you always 💘","Unbreakable bond ♾️"]
+    mom: ["Love you forever ❤️","My queen 👑","Thank you 💕","My hero 🌟","Big hugs 🤗","Endless love ♾️"],
+    sis: ["Best sister 💖","You’re amazing 😘","Forever bond 💕","Stay shining ✨","Love always 💘","Unbreakable ♾️"]
 };
 
 const emojis = ["❤️","💖","💘","💕","🌹","✨"];
 
-// ================= TYPING =================
-function typeText(el, text){
+// Typing
+function typeText(el,text){
     let i=0;
     function typing(){
-        if(i < text.length){
-            el.textContent += text[i];
+        if(i<text.length){
+            el.textContent+=text[i];
             i++;
             setTimeout(typing,40);
         }
     }
     typing();
 }
+typeText(document.getElementById("typingMom"),letters.mom);
+typeText(document.getElementById("typingSis"),letters.sis);
 
-typeText(document.getElementById("typingMom"), letters.mom);
-typeText(document.getElementById("typingSis"), letters.sis);
-
-// ================= MOBILE SAFE AUDIO =================
-const audio = document.getElementById("loveAudio");
-let audioStarted = false;
-
+// Audio mobile safe
+const audio=document.getElementById("loveAudio");
+let audioStarted=false;
 function startAudio(){
     if(!audioStarted){
-        audio.play().then(()=>{
-            audioStarted = true;
-        }).catch(()=>{});
+        audio.play().then(()=>audioStarted=true).catch(()=>{});
     }
 }
 
-// ================= HEARTS =================
+// Hearts
 function createHeart(){
-    const heart = document.createElement("div");
+    const heart=document.createElement("div");
     heart.className="heart";
-    heart.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    heart.style.left = Math.random()*100+"vw";
-    heart.style.animationDuration = (4 + Math.random()*3)+"s";
+    heart.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(4+Math.random()*3)+"s";
     document.body.appendChild(heart);
     setTimeout(()=>heart.remove(),7000);
 }
-
-function burstHearts(){
+function burst(){
     for(let i=0;i<15;i++){
         setTimeout(createHeart,i*80);
     }
 }
 
-// ================= BUTTONS =================
-document.querySelectorAll(".card").forEach(card=>{
-    const person = card.dataset.person;
-    const buttonContainer = card.querySelector(".buttons");
-    const msgBox = card.querySelector(".msg");
+// Buttons
+document.querySelectorAll(".section").forEach(section=>{
+    const person=section.dataset.person;
+    const btnContainer=section.querySelector(".buttons");
+    const msgBox=section.querySelector(".msg");
 
-    emojis.forEach((emoji,index)=>{
-        const btn = document.createElement("button");
-        btn.textContent = emoji;
-
+    emojis.forEach((emoji,i)=>{
+        const btn=document.createElement("button");
+        btn.textContent=emoji;
         btn.addEventListener("click",()=>{
-            startAudio();          // 🔊 plays on first emoji tap (mobile safe)
-            msgBox.textContent = messages[person][index];
-            burstHearts();
+            startAudio();
+            msgBox.textContent=messages[person][i];
+            burst();
         });
-
-        buttonContainer.appendChild(btn);
+        btnContainer.appendChild(btn);
     });
 });
 </script>
